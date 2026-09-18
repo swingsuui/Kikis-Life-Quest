@@ -1,0 +1,9 @@
+{
+  "name": "Kiki's Life Quest",
+  "short_name": "Life Quest",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#eaf7fb",
+  "theme_color": "#eaf7fb",
+  "icons": []
+}
