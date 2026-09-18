@@ -1,0 +1,249 @@
+body {
+  font-family: "Zen Maru Gothic", sans-serif;
+  background: #eaf7fb;
+  color: #40566b;
+  padding: 24px;
+  text-align: center;
+}
+
+h1 {
+  font-family: "Idiqlat", sans-serif;
+  color: #5f91a8;
+  font-size: 36px;
+  font-style: italic;
+  white-space: nowrap;
+  margin-top: 17px;
+  margin-bottom: 17px;
+}
+
+h2 {
+  margin-top: 32px;
+  background: #d8eef5;
+  color: #52788c;
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 20px;
+}
+
+p {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#nyun {
+  font-size: 60px;
+  margin: 0 6px;
+}
+
+button {
+  padding: 14px 18px;
+  border: none;
+  border-radius: 12px;
+  background: #7eb8cc;
+  color: white;
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #b8ccd4;
+  cursor: default;
+}
+
+#dailyQuestList,
+#weeklyQuestList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quest {
+  width: 100%;
+  min-height: 56px;
+  line-height: 1.5;
+  font-weight: bold;
+}
+
+#resetNyun {
+  display: block;
+  margin-top: 32px;
+  margin-bottom: 0;
+  color: #91a9b5;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+#weeklyQuestList .quest {
+  background: #8fc4b5;
+}
+
+#weeklyQuestList .quest:disabled {
+  background: #b8d2ca;
+}
+
+h2:nth-of-type(2) {
+  background: #e0f0df;
+  color: #668878;
+}
+
+#appControls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+#appControls button {
+  box-sizing: border-box;
+  width: 90px;
+  height: 36px;
+  min-height: 36px;
+  margin: 0;
+  padding: 0;
+  line-height: 36px;
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  background: #d5d9dc;
+  color: #667078;
+}
+
+#settingsScreen {
+  display: none;
+}
+
+#settingsQuestList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#settingsQuestList div {
+  background: white;
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: #52788c;
+  font-size: 14px;
+  text-align: left;
+  box-shadow: 0 2px 6px rgba(80, 120, 140, 0.08);
+  display: flex;
+  align-items: center;
+}
+
+#settingsQuestList div span {
+  flex: 1;
+}
+
+#settingsQuestList button {
+  padding: 7px 12px;
+  margin-left: 6px;
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+#settingsQuestList button:last-child {
+  background: #e5c9c9;
+  color: #8a6262;
+}
+
+#addQuestButton {
+  margin-top: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+  background: #8fc4b5;
+  font-size: 15px;
+}
+
+#closeSettings {
+  background: #d5d9dc;
+  color: #667078;
+}
+
+/* ウィークリーの編集ボタン */
+#settingsQuestList .editButton.weekly {
+  background: #8fc4b5;
+  color: white;
+}
+
+/* 設定画面の並べ替えボタン */
+#settingsQuestList .moveButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+#settingsQuestList .moveButtons button {
+  box-sizing: border-box;
+  width: 38px;
+  height: 18px;
+  min-height: 18px;
+  padding: 0;
+  margin: 0;
+  line-height: 18px;
+  font-size: 11px;
+  background: #d5d9dc;
+  color: #667078;
+  border-radius: 5px;
+  box-shadow: none;
+}
+
+/* 設定画面：ボタンの色を確定 */
+
+#settingsQuestList .moveButtons button {
+  background: #d5d9dc !important;
+  color: #667078 !important;
+  box-shadow: none !important;
+}
+
+/* Dailyの編集ボタン */
+#settingsQuestList .editButton.daily {
+  background: #7eb8cc !important;
+  color: white !important;
+}
+
+/* Weeklyの編集ボタン */
+#settingsQuestList .editButton.weekly {
+  background: #8fc4b5 !important;
+  color: white !important;
+}
+
+/* クエスト編集フォーム */
+
+#questEditForm {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+#questEditForm h3 {
+  margin-top: 0;
+  color: #52788c;
+}
+
+#questEditForm label {
+  display: block;
+  margin: 16px 0;
+  color: #52788c;
+  font-weight: bold;
+}
+
+#questEditForm input,
+#questEditForm select {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  border: 1px solid #cbdde4;
+  border-radius: 8px;
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 16px;
+}
