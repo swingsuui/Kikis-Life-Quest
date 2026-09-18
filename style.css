@@ -4,7 +4,6 @@ body {
   color: #40566b;
   padding: 24px;
   text-align: center;
-  margin: 0;
 }
 
 h1 {
@@ -255,4 +254,9 @@ h2:nth-of-type(2) {
   z-index: 10;
   background: #eaf7fb;
   padding-bottom: 8px;
+}
+
+#mainScreen {
+  height: 100vh;
+  overflow-y: auto;
 }
