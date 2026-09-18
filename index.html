@@ -79,14 +79,17 @@
 </div>
 
 <script>
-  alert("① HTMLは動いています");
+  window.onerror = function(message, source, line, column) {
+    alert(
+      "エラー：" +
+      message +
+      "\n行：" +
+      line
+    );
+  };
 </script>
 
 <script src="./app.js"></script>
-
-<script>
-  alert("③ app.jsの後まで来ました");
-</script>
 
 </body>
 </html>
