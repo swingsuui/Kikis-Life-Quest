@@ -247,3 +247,11 @@ h2:nth-of-type(2) {
   font-family: "Zen Maru Gothic", sans-serif;
   font-size: 16px;
 }
+
+#fixedHeader {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #eaf7fb;
+  padding-bottom: 8px;
+}
