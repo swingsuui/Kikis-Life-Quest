@@ -108,18 +108,20 @@ if (savedDailyDate !== today) {
 // Weekly Quest の達成状態をリセット
 // ========================================
 
-if (savedWeeklyDate !== thisWeek) {
-
-  localStorage.setItem(
-    "weeklyDate",
-    thisWeek
-  );
+if (
+  savedWeeklyDate !== null &&
+  savedWeeklyDate !== thisWeek
+) {
 
   localStorage.removeItem(
     "completedWeekly"
   );
 }
 
+localStorage.setItem(
+  "weeklyDate",
+  thisWeek
+);
 
 // ========================================
 // 達成済みクエストの読み込み
