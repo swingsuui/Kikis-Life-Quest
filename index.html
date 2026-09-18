@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiki's Life Quest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Idiqlat:wght@200;300;400&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main id="mainScreen">
+<div id="fixedHeader">
+
+  <h1>Kiki's Life Quest</h1>
+
+  <p>所持金　<span id="nyun">0</span> N</p>
+
+</div>
+
+<h2>＊ Daily Quest ＊</h2>
+
+<div id="dailyQuestList">
+
+</div>
+
+<h2>＊ Weekly Quest ＊</h2>
+
+<div id="weeklyQuestList">
+
+</div>
+
+<div id="appControls">
+  <button id="settingsButton">設定</button>
+  <button id="resetNyun">リセット</button>
+</div>
+</main>
+
+<div id="settingsScreen">
+  <h2>＊ Quest Settings ＊</h2>
+ <div id="settingsQuestList"></div>
+
+<button id="addQuestButton">＋ クエストを追加</button>
+<div id="questEditForm" style="display: none;">
+  <h3>クエストを編集</h3>
+
+  <label>
+    クエスト名
+    <input type="text" id="editQuestName">
+  </label>
+
+  <label>
+    報酬
+    <input type="number" id="editQuestReward">
+  </label>
+
+  <label>
+    種類
+    <select id="editQuestType">
+      <option value="daily">Daily</option>
+      <option value="weekly">Weekly</option>
+    </select>
+  </label>
+
+  <button id="saveQuestEdit">保存</button>
+  <button id="cancelQuestEdit">キャンセル</button>
+</div>
+  <button id="closeSettings">戻る</button>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
