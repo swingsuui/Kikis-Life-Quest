@@ -1,4 +1,3 @@
-
 // ========================================
 // にゅん（所持金）の読み込み
 // ========================================
@@ -65,7 +64,7 @@ function getQuestWeek() {
 const month = String(
   now.getMonth() + 1
 ).padStart(2, "0");
-const day = String(
+const date = String(
   now.getDate()
 ).padStart(2, "0");
 
