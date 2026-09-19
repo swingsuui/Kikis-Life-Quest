@@ -253,18 +253,17 @@ h2:nth-of-type(2) {
   top: 0;
   z-index: 10;
   background: #eaf7fb;
-  padding-top: env(safe-area-inset-top);
+  margin-top: env(safe-area-inset-top);
   padding-bottom: 0;
-  /* margin-top: -24px; を削除 */
 }
 
 
 #mainScreen {
   height: 100vh;
   overflow-y: auto;
-  margin: -24px;
-  padding: 24px;
+  padding: 0px;
   box-sizing: border-box;
+  margin-top: 24px;
 }
 
 html {
