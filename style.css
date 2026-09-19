@@ -253,7 +253,8 @@ h2:nth-of-type(2) {
   top: 0;
   z-index: 10;
   background: #eaf7fb;
-  padding: 8px 0;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: 0;
   /* margin-top: -24px; を削除 */
 }
 
@@ -264,4 +265,8 @@ h2:nth-of-type(2) {
   margin: -24px;
   padding: 24px;
   box-sizing: border-box;
+}
+
+html {
+background: #eaf7fb;
 }
