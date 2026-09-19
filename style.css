@@ -253,7 +253,7 @@ h2:nth-of-type(2) {
   top: 0;
   z-index: 10;
   background: #eaf7fb;
-  margin-top: env(safe-area-inset-top);
+  padding-top: 8px;
   padding-bottom: 0;
 }
 
