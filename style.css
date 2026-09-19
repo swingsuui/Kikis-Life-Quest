@@ -253,9 +253,10 @@ h2:nth-of-type(2) {
   top: 0;
   z-index: 10;
   background: #eaf7fb;
-  padding: 8px 0 8px 0;
-  margin-top: -24px;
+  padding: 8px 0;
+  /* margin-top: -24px; を削除 */
 }
+
 
 #mainScreen {
   height: 100vh;
