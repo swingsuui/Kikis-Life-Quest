@@ -1,85 +1,432 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#eaf7fb">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Kiki's Life Quest">
-  
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <!-- PWA -->
+
+  <link
+    rel="manifest"
+    href="manifest.json"
+  >
+
+  <meta
+    name="theme-color"
+    content="#eaf7fb"
+  >
+
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
+
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="default"
+  >
+
+  <meta
+    name="apple-mobile-web-app-title"
+    content="Kiki's Life Quest"
+  >
+
   <title>Kiki's Life Quest</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Idiqlat:wght@200;300;400&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Idiqlat:wght@200;300;400&family=Zen+Maru+Gothic:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
 </head>
+
+
 <body>
 
-<main id="mainScreen">
-<div id="fixedHeader">
 
-  <h1>Kiki's Life Quest</h1>
+  <!-- ========================================
+       メイン画面
+       ======================================== -->
 
-  <p>所持金　<span id="nyun">0</span> N</p>
+  <main id="mainScreen">
 
-</div>
 
-<h2>＊ Daily Quest ＊</h2>
+    <!-- ======================================
+         固定ヘッダー
+         ====================================== -->
 
-<div id="dailyQuestList">
+    <div id="fixedHeader">
 
-</div>
+      <h1>
+        Kiki's Life Quest
+      </h1>
 
-<h2>＊ Weekly Quest ＊</h2>
 
-<div id="weeklyQuestList">
+      <p>
+        所持金　
+        <span id="nyun">0</span>
+        N
+      </p>
 
-</div>
 
-<div id="appControls">
-  <button id="settingsButton">設定</button>
-  <button id="resetNyun">リセット</button>
-</div>
-</main>
+      <!-- Rewardボタン -->
 
-<div id="settingsScreen">
-  <h2>＊ Quest Settings ＊</h2>
- <div id="settingsQuestList"></div>
+      <button id="rewardButton">
+        ＊ Reward ＊
+      </button>
 
-<button id="addQuestButton">＋ クエストを追加</button>
-<div id="questEditForm" style="display: none;">
-  <h3>クエストを編集</h3>
+    </div>
+
+
+
+    <!-- ======================================
+         クエスト画面
+         ====================================== -->
+
+    <div id="questScreen">
+
+
+      <!-- Daily Quest -->
+
+      <h2>
+        ＊ Daily Quest ＊
+      </h2>
+
+
+      <div id="dailyQuestList">
+      </div>
+
+
+
+      <!-- Weekly Quest -->
+
+      <h2>
+        ＊ Weekly Quest ＊
+      </h2>
+
+
+      <div id="weeklyQuestList">
+      </div>
+
+
+    </div>
+
+
+
+    <!-- ======================================
+         Reward画面
+         ====================================== -->
+
+    <div id="rewardScreen">
+
+
+      <h2>
+        ＊ Reward ＊
+      </h2>
+
+
+      <div id="rewardList">
+      </div>
+
+
+      <button id="backToQuestButton">
+        クエストに戻る
+      </button>
+
+
+    </div>
+
+
+
+    <!-- ======================================
+         メイン画面の操作ボタン
+         ====================================== -->
+
+    <div id="appControls">
+
+      <button id="settingsButton">
+        設定
+      </button>
+
+
+      <button id="resetNyun">
+        リセット
+      </button>
+
+    </div>
+
+
+  </main>
+
+
+
+  <!-- ========================================
+       設定画面
+       ======================================== -->
+
+  <div id="settingsScreen">
+
+
+    <h2>
+      ＊ Quest Settings ＊
+    </h2>
+
+
+    <!-- クエスト一覧 -->
+
+    <div id="settingsQuestList">
+    </div>
+
+
+    <!-- クエスト追加 -->
+
+    <button id="addQuestButton">
+      ＋ クエストを追加
+    </button>
+
+<!-- ========================================
+     ご褒美設定
+======================================== -->
+
+<h2 id="rewardSettingsTitle">Reward</h2>
+
+<div id="settingsRewardList"></div>
+
+<button id="addRewardButton">＋ ご褒美を追加</button>
+
+    <!-- ======================================
+         クエスト編集フォーム
+         ====================================== -->
+
+    <div
+      id="questEditForm"
+      style="display: none;"
+    >
+
+      <h3>
+        クエストを編集
+      </h3>
+
+
+      <!-- クエスト名 -->
+
+      <label>
+
+        クエスト名
+
+        <input
+          type="text"
+          id="editQuestName"
+        >
+
+      </label>
+
+
+      <!-- 報酬 -->
+
+      <label>
+
+        報酬
+
+        <input
+          type="number"
+          id="editQuestReward"
+        >
+
+      </label>
+
+
+      <!-- 種類 -->
+
+      <label>
+
+        種類
+
+        <select id="editQuestType">
+
+          <option value="daily">
+            Daily
+          </option>
+
+          <option value="weekly">
+            Weekly
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <!-- 保存 -->
+
+      <button id="saveQuestEdit">
+        保存
+      </button>
+
+
+      <!-- キャンセル -->
+
+      <button id="cancelQuestEdit">
+        キャンセル
+      </button>
+
+
+    </div>
+
+
+
+    <!-- 設定画面を閉じる -->
+
+    <button id="closeSettings">
+      戻る
+    </button>
+
+
+  </div>
+
+<!-- ========================================
+     ご褒美編集フォーム
+======================================== -->
+
+<div id="rewardEditForm" style="display: none;">
+
+  <h3>ご褒美を編集</h3>
 
   <label>
-    クエスト名
-    <input type="text" id="editQuestName">
+    ご褒美名
+    <input
+      type="text"
+      id="editRewardName"
+    >
   </label>
 
   <label>
-    報酬
-    <input type="number" id="editQuestReward">
+    必要N
+    <input
+      type="number"
+      id="editRewardPrice"
+      min="1"
+    >
   </label>
 
-  <label>
-    種類
-    <select id="editQuestType">
-      <option value="daily">Daily</option>
-      <option value="weekly">Weekly</option>
-    </select>
-  </label>
+  <button id="saveRewardEdit">
+    保存
+  </button>
 
-  <button id="saveQuestEdit">保存</button>
-  <button id="cancelQuestEdit">キャンセル</button>
-</div>
-  <button id="closeSettings">戻る</button>
+  <button id="cancelRewardEdit">
+    キャンセル
+  </button>
+
 </div>
 
-<script src="./app.js"></script>
+  <!-- ========================================
+       Reward獲得ポップアップ
+       ======================================== -->
+
+  <div id="rewardPopup">
+
+
+    <div id="rewardPopupContent">
+
+
+      <p id="rewardPopupMessage">
+      </p>
+
+
+      <button id="rewardPopupOK">
+        OK
+      </button>
+
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- ========================================
+       DEBUG LOG
+       ======================================== 
+
+  <div id="debugLog">
+
+    <div id="debugLogTitle">
+      DEBUG LOG
+    </div>
+
+    <div id="debugLogContent">
+    </div>
+
+  </div>
+
+-->
+
+  <!-- ========================================
+       JavaScript読み込み前
+       ======================================== -->
+
+  <script>
+
+    document
+      .getElementById("debugLogContent")
+      .textContent +=
+        "[HTML] script.js読み込み前\n";
+
+  </script>
+
+
+
+  <!-- ========================================
+       JavaScript
+       ======================================== -->
+
+  <script src="./script.js"></script>
+
+
+
+  <!-- ========================================
+       JavaScript読み込み後
+       ======================================== -->
+
+  <script>
+
+    document
+      .getElementById("debugLogContent")
+      .textContent +=
+        "[HTML] script.jsの後まで来ました\n";
+
+  </script>
+
 
 </body>
+
 </html>
-  
