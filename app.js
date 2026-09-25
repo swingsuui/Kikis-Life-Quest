@@ -47,12 +47,20 @@ function getQuestWeek() {
 
   const now = new Date();
 
+  // 午前5時より前なら「前日」として扱う
   if (now.getHours() < 5) {
     now.setDate(now.getDate() - 1);
   }
 
+  // 曜日を取得
+  // 日曜 = 0
+  // 月曜 = 1
+  // 火曜 = 2
+  // ...
+  // 土曜 = 6
   const day = now.getDay();
 
+  // 今週の月曜日まで戻す
   const difference =
     day === 0 ? -6 : 1 - day;
 
@@ -60,17 +68,25 @@ function getQuestWeek() {
     now.getDate() + difference
   );
 
-  const year = now.getFullYear();
-const month = String(
-  now.getMonth() + 1
-).padStart(2, "0");
-const date = String(
-  now.getDate()
-).padStart(2, "0");
 
-return year + "-" + month + "-" + day;
+  // 月曜日の日付を取得
+  const year =
+    now.getFullYear();
+
+  const month =
+    String(
+      now.getMonth() + 1
+    ).padStart(2, "0");
+
+  const date =
+    String(
+      now.getDate()
+    ).padStart(2, "0");
+
+
+  // 「今週の月曜日」の日付を返す
+  return year + "-" + month + "-" + date;
 }
-
 
 // ========================================
 // 今日・今週の情報を取得
