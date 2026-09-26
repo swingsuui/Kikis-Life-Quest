@@ -136,6 +136,59 @@ let nyun =
     localStorage.getItem("nyun")
   ) || 0;
 
+// ========================================
+// にゅん獲得履歴
+// ========================================
+
+debugLog(
+  "にゅん獲得履歴の読み込み開始"
+);
+
+
+let nyunHistory = {};
+
+
+try {
+
+  const savedNyunHistory =
+    localStorage.getItem(
+      "nyunHistory"
+    );
+
+
+  if (
+    savedNyunHistory
+  ) {
+
+    nyunHistory =
+      JSON.parse(
+        savedNyunHistory
+      );
+
+  }
+
+
+  debugLog(
+    "にゅん獲得履歴読み込みOK"
+  );
+
+} catch (error) {
+
+  debugLog(
+    "ERROR: にゅん獲得履歴の読み込み失敗: " +
+    error.message
+  );
+
+
+  nyunHistory = {};
+
+}
+
+
+debugLog(
+  "にゅん獲得履歴読み込み完了"
+);
+
 
 const nyunElement =
   document.getElementById("nyun");
@@ -581,6 +634,57 @@ debugCheck(
   backToQuestButton
 );
 
+
+// ========================================
+// Nグラフ画面
+// ========================================
+
+const graphButton =
+  document.getElementById(
+    "graphButton"
+  );
+
+
+debugCheck(
+  "graphButton",
+  graphButton
+);
+
+
+const graphScreen =
+  document.getElementById(
+    "graphScreen"
+  );
+
+
+debugCheck(
+  "graphScreen",
+  graphScreen
+);
+
+
+const nyunGraph =
+  document.getElementById(
+    "nyunGraph"
+  );
+
+
+debugCheck(
+  "nyunGraph",
+  nyunGraph
+);
+
+
+const backToQuestFromGraph =
+  document.getElementById(
+    "backToQuestFromGraph"
+  );
+
+
+debugCheck(
+  "backToQuestFromGraph",
+  backToQuestFromGraph
+);
 
 // ========================================
 // Rewardポップアップ
@@ -2088,6 +2192,44 @@ function renderQuestLists() {
             nyun
           );
 
+// ------------------------------------
+// 日別の獲得Nを記録
+// ------------------------------------
+
+const questDate =
+  getQuestDate();
+
+
+if (
+  !nyunHistory[questDate]
+) {
+
+  nyunHistory[questDate] =
+    0;
+
+}
+
+
+nyunHistory[questDate] +=
+  quest.reward;
+
+
+localStorage.setItem(
+  "nyunHistory",
+  JSON.stringify(
+    nyunHistory
+  )
+);
+
+
+debugLog(
+  "日別獲得Nを記録: " +
+  questDate +
+  " → " +
+  nyunHistory[questDate] +
+  " N"
+);
+
 
           completedList.push(
             quest.id
@@ -2465,6 +2607,7 @@ if (
 
       rewardPopup.style.display =
         "none";
+
 
 
       showQuestScreen();
@@ -3072,6 +3215,12 @@ if (
         "completedWeekly"
       );
 
+localStorage.removeItem(
+  "nyunHistory"
+);
+
+
+nyunHistory = {};
 
       localStorage.removeItem(
         "dailyDate"
@@ -3105,6 +3254,468 @@ if (
 
 }
 
+
+// ========================================
+// Nグラフ
+// ========================================
+
+function renderNyunGraph() {
+
+  debugLog(
+    "renderNyunGraph() 開始"
+  );
+
+
+  if (
+    !nyunGraph
+  ) {
+
+    debugLog(
+      "ERROR: nyunGraphがありません"
+    );
+
+    return;
+
+  }
+
+
+  nyunGraph.innerHTML =
+    "";
+
+
+  // ------------------------------------
+  // 今日の日付を取得
+  // ------------------------------------
+
+  const todayDate =
+    getQuestDate();
+
+
+  const today =
+    new Date(
+      todayDate + "T12:00:00"
+    );
+
+
+  // ------------------------------------
+  // 7日前～今日の8日分
+  // ------------------------------------
+
+  const dates = [];
+
+
+  for (
+    let i = 7;
+    i >= 0;
+    i--
+  ) {
+
+    const date =
+      new Date(
+        today
+      );
+
+
+    date.setDate(
+      today.getDate() - i
+    );
+
+
+    const year =
+      date.getFullYear();
+
+
+    const month =
+      String(
+        date.getMonth() + 1
+      ).padStart(
+        2,
+        "0"
+      );
+
+
+    const day =
+      String(
+        date.getDate()
+      ).padStart(
+        2,
+        "0"
+      );
+
+
+    const dateKey =
+      year +
+      "-" +
+      month +
+      "-" +
+      day;
+
+
+    dates.push(
+      dateKey
+    );
+
+  }
+
+
+  // ------------------------------------
+  // 最大値を取得
+  // ------------------------------------
+
+  let maxValue =
+    0;
+
+
+  dates.forEach(
+    function (dateKey) {
+
+      const value =
+        Number(
+          nyunHistory[dateKey]
+        ) || 0;
+
+
+      if (
+        value > maxValue
+      ) {
+
+        maxValue =
+          value;
+
+      }
+
+    }
+  );
+
+
+  // 全部0だった場合
+  if (
+    maxValue === 0
+  ) {
+
+    maxValue =
+      100;
+
+  }
+
+
+  // ------------------------------------
+  // 棒グラフを作成
+  // ------------------------------------
+
+  dates.forEach(
+    function (dateKey) {
+
+      const value =
+        Number(
+          nyunHistory[dateKey]
+        ) || 0;
+
+
+      const date =
+        new Date(
+          dateKey + "T12:00:00"
+        );
+
+
+      const month =
+        date.getMonth() + 1;
+
+
+      const day =
+        date.getDate();
+
+
+      const weekNames = [
+        "日",
+        "月",
+        "火",
+        "水",
+        "木",
+        "金",
+        "土"
+      ];
+
+
+      const week =
+        weekNames[
+          date.getDay()
+        ];
+
+
+      // --------------------------------
+      // 日付全体
+      // --------------------------------
+
+      const barContainer =
+        document.createElement(
+          "div"
+        );
+
+
+      barContainer.classList.add(
+        "graphBarContainer"
+      );
+
+
+      // --------------------------------
+      // 数値
+      // --------------------------------
+
+      const valueElement =
+        document.createElement(
+          "div"
+        );
+
+
+      valueElement.classList.add(
+        "graphValue"
+      );
+
+
+      valueElement.textContent =
+        value +
+        "N";
+
+
+      // --------------------------------
+      // 棒を入れるエリア
+      // --------------------------------
+
+      const barArea =
+        document.createElement(
+          "div"
+        );
+
+
+      barArea.classList.add(
+        "graphBarArea"
+      );
+
+
+      // --------------------------------
+      // 棒
+      // --------------------------------
+
+      const bar =
+        document.createElement(
+          "div"
+        );
+
+
+      bar.classList.add(
+        "graphBar"
+      );
+
+
+      const height =
+        value === 0
+          ? 0
+          : Math.max(
+              8,
+              (value / maxValue) * 100
+            );
+
+
+      bar.style.height =
+        height +
+        "%";
+
+
+      barArea.appendChild(
+        bar
+      );
+
+
+      // --------------------------------
+      // 日付
+      // --------------------------------
+
+      const dateElement =
+        document.createElement(
+          "div"
+        );
+
+
+      dateElement.classList.add(
+        "graphDate"
+      );
+
+
+      dateElement.innerHTML =
+        month +
+        "/" +
+        day +
+        "<br>" +
+        "(" +
+        week +
+        ")";
+
+
+      // --------------------------------
+      // 追加
+      // --------------------------------
+
+      barContainer.appendChild(
+        valueElement
+      );
+
+
+      barContainer.appendChild(
+        barArea
+      );
+
+
+      barContainer.appendChild(
+        dateElement
+
+      );
+
+
+      nyunGraph.appendChild(
+        barContainer
+      );
+
+    }
+  );
+
+
+  debugLog(
+    "renderNyunGraph() 完了"
+  );
+
+}
+
+// ========================================
+// Nグラフ画面
+// ========================================
+
+function showGraphScreen() {
+
+  debugLog(
+    "showGraphScreen() 開始"
+  );
+
+
+  if (
+    mainScreen
+  ) {
+
+    mainScreen.style.display =
+      "none";
+
+  }
+
+
+  if (
+    settingsScreen
+  ) {
+
+    settingsScreen.style.display =
+      "none";
+
+  }
+
+
+  if (
+    graphScreen
+  ) {
+
+    graphScreen.style.display =
+      "block";
+
+  }
+
+
+  renderNyunGraph();
+
+
+  debugLog(
+    "showGraphScreen() 完了"
+  );
+
+}
+
+
+// ========================================
+// グラフからクエストへ戻る
+// ========================================
+
+function backFromGraph() {
+
+  debugLog(
+    "グラフ画面からクエスト画面へ戻ります"
+  );
+
+
+  if (
+    graphScreen
+  ) {
+
+    graphScreen.style.display =
+      "none";
+
+  }
+
+
+  if (
+    mainScreen
+  ) {
+
+    mainScreen.style.display =
+      "block";
+
+  }
+
+
+  showQuestScreen();
+
+}
+
+
+// ========================================
+// Nグラフボタン
+// ========================================
+
+if (
+  graphButton
+) {
+
+  graphButton.addEventListener(
+    "click",
+    function () {
+
+      debugLog(
+        "Nグラフボタンが押されました"
+      );
+
+
+      showGraphScreen();
+
+    }
+  );
+
+}
+
+
+// ========================================
+// グラフから戻る
+// ========================================
+
+if (
+  backToQuestFromGraph
+) {
+
+  backToQuestFromGraph.addEventListener(
+    "click",
+    function () {
+
+      backFromGraph();
+
+    }
+  );
+
+}
 
 // ========================================
 // 起動
@@ -3150,3 +3761,4 @@ debugLog(
 debugLog(
   "========== JavaScript COMPLETE =========="
 );
+
