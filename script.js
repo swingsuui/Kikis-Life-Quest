@@ -2129,6 +2129,12 @@ function renderQuestLists() {
         quest.reward +
         "N";
 
+  button.classList.remove(
+
+    "completed"
+
+  );
+
 
       const isWeekly =
         quest.type === "weekly";
@@ -2141,142 +2147,332 @@ function renderQuestLists() {
 
 
       if (
-        completedList.includes(
-          quest.id
-        )
+  completedList.includes(
+    quest.id
+  )
+) {
+
+  button.textContent =
+    quest.name +
+    "✨達成✨ +" +
+    quest.reward +
+    "N";
+
+
+  button.disabled =
+    false;
+
+  button.classList.add(
+    "completed"
+  );
+}
+
+
+      button.addEventListener(
+  "click",
+  function () {
+
+    debugLog(
+      "クエストボタン: " +
+      quest.name
+    );
+
+
+    // ====================================
+    // すでに達成済み → 達成をキャンセル
+    // ====================================
+
+    if (
+      completedList.includes(
+        quest.id
+      )
+    ) {
+
+      debugLog(
+        "達成キャンセル: " +
+        quest.name
+      );
+
+
+      // --------------------------------
+      // にゅんを戻す
+      // --------------------------------
+
+      nyun -=
+        quest.reward;
+
+
+      // 念のため0未満にはしない
+      if (
+        nyun < 0
       ) {
 
-        button.textContent =
-          "達成済み！ +" +
-          quest.reward +
-          "N";
-
-
-        button.disabled =
-          true;
+        nyun = 0;
 
       }
 
 
-      button.addEventListener(
-        "click",
-        function () {
-
-          debugLog(
-            "クエスト達成: " +
-            quest.name
-          );
+      nyunElement.textContent =
+        nyun;
 
 
-          if (
-            completedList.includes(
-              quest.id
-            )
-          ) {
-
-            return;
-
-          }
+      localStorage.setItem(
+        "nyun",
+        nyun
+      );
 
 
-          nyun +=
-            quest.reward;
+      // --------------------------------
+      // 日別獲得Nから取り消す
+      // --------------------------------
+
+      const questDate =
+        getQuestDate();
 
 
-          nyunElement.textContent =
-            nyun;
+      if (
+        nyunHistory[questDate]
+      ) {
+
+        nyunHistory[questDate] -=
+          quest.reward;
 
 
-          localStorage.setItem(
-            "nyun",
-            nyun
-          );
+        if (
+          nyunHistory[questDate] < 0
+        ) {
 
-// ------------------------------------
-// 日別の獲得Nを記録
-// ------------------------------------
-
-const questDate =
-  getQuestDate();
-
-
-if (
-  !nyunHistory[questDate]
-) {
-
-  nyunHistory[questDate] =
-    0;
-
-}
-
-
-nyunHistory[questDate] +=
-  quest.reward;
-
-
-localStorage.setItem(
-  "nyunHistory",
-  JSON.stringify(
-    nyunHistory
-  )
-);
-
-
-debugLog(
-  "日別獲得Nを記録: " +
-  questDate +
-  " → " +
-  nyunHistory[questDate] +
-  " N"
-);
-
-
-          completedList.push(
-            quest.id
-          );
-
-
-          if (
-            isWeekly
-          ) {
-
-            localStorage.setItem(
-              "completedWeekly",
-              JSON.stringify(
-                completedList
-              )
-            );
-
-          } else {
-
-            localStorage.setItem(
-              "completedDaily",
-              JSON.stringify(
-                completedList
-              )
-            );
-
-          }
-
-
-          button.textContent =
-            "達成済み！ +" +
-            quest.reward +
-            "N";
-
-
-          button.disabled =
-            true;
-
-
-          debugLog(
-            "にゅん加算後: " +
-            nyun +
-            " N"
-          );
+          nyunHistory[questDate] =
+            0;
 
         }
+
+      }
+
+
+      localStorage.setItem(
+        "nyunHistory",
+        JSON.stringify(
+          nyunHistory
+        )
       );
+
+
+      debugLog(
+        "日別獲得Nを減算: " +
+        questDate +
+        " → " +
+        nyunHistory[questDate] +
+        " N"
+      );
+
+
+      // --------------------------------
+      // 達成済みリストから削除
+      // --------------------------------
+
+      const completedIndex =
+        completedList.indexOf(
+          quest.id
+        );
+
+
+      if (
+        completedIndex !== -1
+      ) {
+
+        completedList.splice(
+          completedIndex,
+          1
+        );
+
+      }
+
+
+      // --------------------------------
+      // localStorageに保存
+      // --------------------------------
+
+      if (
+        isWeekly
+      ) {
+
+        localStorage.setItem(
+          "completedWeekly",
+          JSON.stringify(
+            completedList
+          )
+        );
+
+      } else {
+
+        localStorage.setItem(
+          "completedDaily",
+          JSON.stringify(
+            completedList
+          )
+        );
+
+      }
+
+
+      // --------------------------------
+      // ボタンを未達成状態に戻す
+      // --------------------------------
+
+      button.textContent =
+        quest.name +
+        " +" +
+        quest.reward +
+        "N";
+
+
+      button.disabled =
+        false;
+
+  button.classList.remove(
+    "completed"
+  );
+
+      debugLog(
+        "達成キャンセル完了。にゅん: " +
+        nyun +
+        " N"
+      );
+
+
+      return;
+
+    }
+
+
+    // ====================================
+    // 未達成 → 達成
+    // ====================================
+
+    debugLog(
+      "クエスト達成: " +
+      quest.name
+    );
+
+
+    nyun +=
+      quest.reward;
+
+
+    nyunElement.textContent =
+      nyun;
+
+
+    localStorage.setItem(
+      "nyun",
+      nyun
+    );
+
+
+    // ------------------------------------
+    // 日別の獲得Nを記録
+    // ------------------------------------
+
+    const questDate =
+      getQuestDate();
+
+
+    if (
+      !nyunHistory[questDate]
+    ) {
+
+      nyunHistory[questDate] =
+        0;
+
+    }
+
+
+    nyunHistory[questDate] +=
+      quest.reward;
+
+
+    localStorage.setItem(
+      "nyunHistory",
+      JSON.stringify(
+        nyunHistory
+      )
+    );
+
+
+    debugLog(
+      "日別獲得Nを記録: " +
+      questDate +
+      " → " +
+      nyunHistory[questDate] +
+      " N"
+    );
+
+
+    // ------------------------------------
+    // 達成済みリストに追加
+    // ------------------------------------
+
+    completedList.push(
+      quest.id
+    );
+
+
+    if (
+      isWeekly
+    ) {
+
+      localStorage.setItem(
+        "completedWeekly",
+        JSON.stringify(
+          completedList
+        )
+      );
+
+    } else {
+
+      localStorage.setItem(
+        "completedDaily",
+        JSON.stringify(
+          completedList
+        )
+      );
+
+    }
+
+
+    // ------------------------------------
+    // ボタンを達成状態にする
+    // ------------------------------------
+
+    button.textContent =
+      quest.name +
+      "✨達成✨ +" +
+      quest.reward +
+      "N";
+
+
+    button.disabled =
+      false;
+
+  button.classList.add(
+
+    "completed"
+
+  );
+
+    debugLog(
+      "にゅん加算後: " +
+      nyun +
+      " N"
+    );
+
+  }
+);
+
+
+
+
 
 
       if (
