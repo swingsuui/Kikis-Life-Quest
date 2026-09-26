@@ -400,17 +400,12 @@ debugLog(
 // ========================================
 
 if (
+  savedDailyDate !== null &&
   savedDailyDate !== today
 ) {
 
   debugLog(
     "Daily Questをリセットします"
-  );
-
-
-  localStorage.setItem(
-    "dailyDate",
-    today
   );
 
 
@@ -420,6 +415,11 @@ if (
 
 }
 
+
+localStorage.setItem(
+  "dailyDate",
+  today
+);
 
 // ========================================
 // Weekly Quest リセット
