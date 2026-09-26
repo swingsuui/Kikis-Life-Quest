@@ -980,3 +980,186 @@ button:disabled {
 
   font-size: 16px;
 }
+
+/* ========================================
+   Nグラフ画面
+======================================== */
+
+#graphScreen {
+  display: none;
+
+  min-height: 100vh;
+
+  padding-bottom: 24px;
+}
+
+
+/* ========================================
+   Nグラフ見出し
+======================================== */
+
+#graphScreen h2 {
+  background: #d8eef5;
+
+  color: #52788c;
+}
+
+
+/* ========================================
+   グラフ説明
+======================================== */
+
+#graphDescription {
+  margin: 20px 0;
+
+  color: #66808e;
+
+  font-size: 14px;
+
+  font-weight: normal;
+}
+
+
+/* ========================================
+   グラフ本体
+======================================== */
+
+#nyunGraph {
+  display: flex;
+
+  align-items: flex-end;
+
+  gap: 6px;
+
+  width: 100%;
+
+  height: 320px;
+
+  padding: 20px 6px 0;
+
+  background: rgba(255, 255, 255, 0.55);
+
+  border-radius: 16px;
+}
+
+
+/* ========================================
+   各棒
+======================================== */
+
+.graphBarContainer {
+  display: flex;
+
+  flex: 1;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  height: 100%;
+
+  min-width: 0;
+}
+
+
+/* ========================================
+   Nの数字
+======================================== */
+
+.graphValue {
+  width: 100%;
+
+  height: 24px;
+
+  color: #52788c;
+
+  font-size: 11px;
+
+  font-weight: bold;
+
+  line-height: 24px;
+
+  white-space: nowrap;
+
+  text-align: center;
+}
+
+
+/* ========================================
+   棒の領域
+======================================== */
+
+.graphBarArea {
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: center;
+
+  width: 100%;
+
+  flex: 1;
+
+  min-height: 0;
+
+  border-bottom: 2px solid #c8dce3;
+}
+
+
+/* ========================================
+   棒
+======================================== */
+
+.graphBar {
+  width: 70%;
+
+  min-height: 0;
+
+  background: #7eb8cc;
+
+  border-radius:
+    8px 8px 0 0;
+
+  transition:
+    height 0.3s ease;
+}
+
+
+/* ========================================
+   日付
+======================================== */
+
+.graphDate {
+  width: 100%;
+
+  height: 42px;
+
+  padding-top: 7px;
+
+  color: #66808e;
+
+  font-size: 11px;
+
+  line-height: 1.4;
+
+  white-space: nowrap;
+
+  text-align: center;
+}
+
+
+/* ========================================
+   グラフから戻る
+======================================== */
+
+#backToQuestFromGraph {
+  display: block;
+
+  width: 100%;
+
+  margin-top: 32px;
+
+  background: #d5d9dc;
+
+  color: #667078;
+}
